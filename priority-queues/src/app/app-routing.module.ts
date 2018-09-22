@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MessageInputComponent } from './message-input/message-input.component';
-
+import { MessagingHomeComponent } from './messaging-home/messaging-home.component';
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: MessageInputComponent }
+  {path: 'home', component: MessagingHomeComponent }
 ];
 
 @NgModule({

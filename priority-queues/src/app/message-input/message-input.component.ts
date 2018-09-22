@@ -1,4 +1,5 @@
 import { Component, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+import { MessagingService } from '../services/messaging.service';
 
 @Component({
   selector: 'app-message-input',
@@ -6,17 +7,18 @@ import { Component, OnInit, SimpleChanges, OnChanges } from '@angular/core';
   styleUrls: ['./message-input.component.scss']
 })
 export class MessageInputComponent implements OnInit {
-  message: String;
+  message: string;
 
-  constructor() { }
+  constructor(private messagingService: MessagingService) { }
 
   ngOnInit() {
   }
 
-  onChanges(): void {
+  onClick(): void {
     // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     // Add '${implements OnChanges}' to the class.
     console.log(this.message);
+    this.messagingService.sendMessage(this.message);
   }
 
 }
