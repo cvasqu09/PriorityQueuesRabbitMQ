@@ -5,6 +5,10 @@ $custom-primary: mat-palette($mat-orange);
 $custom-accent: mat-palette($mat-orange);
 $custom-warn: mat-palette($mat-red);
 
-$custom-theme: mat-light-theme($custom-primary, $custom-accent, $custom-warn);
+$custom-theme: mat-dark-theme($custom-primary, $custom-accent, $custom-warn);
 
 @include angular-material-theme($custom-theme);
+
+body {
+  background-color: #424242;
+}

@@ -4,7 +4,7 @@ import { MessagingService } from '../services/messaging.service';
 @Component({
   selector: 'app-message-input',
   templateUrl: './message-input.component.html',
-  styleUrls: ['./message-input.component.scss']
+  styleUrls: ['./message-input.component.scss'],
 })
 export class MessageInputComponent implements OnInit {
   message: string;
