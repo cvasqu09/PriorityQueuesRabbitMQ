@@ -2,7 +2,10 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <span>RabbitMQ Priority Queues</span>
-    <mat-icon class="settings-icon">settings</mat-icon>
+    <ul>
+      <a routerLink='/view'><button mat-button>View</button></a>
+      <a routerLink='/home'><button mat-button>Send</button></a>
+    </ul>
   </mat-toolbar-row>
 </mat-toolbar>
 <router-outlet></router-outlet>
