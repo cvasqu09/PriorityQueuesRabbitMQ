@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const sendRoutes = require('./api/send');
+const receiveRoutes = require('./api/receive');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,5 +18,6 @@ app.use(function (req, res, next) {
 });
 
 app.use('/send', sendRoutes);
+app.use('/receive', receiveRoutes);
 
 module.exports = app;
