@@ -16,6 +16,11 @@ export class NotificationSnackbarComponent implements OnInit {
     this.notificationService.notificationObs.subscribe((notification) => {
       this.notification = notification;
       console.log(this.notification);
+      setTimeout(() => {
+        if (notification !== '') {
+          this.snackBar.open(notification, '', { duration: 2000 });
+        }
+      }, 1000);
     });
   }
 

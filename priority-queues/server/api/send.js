@@ -6,34 +6,58 @@ const amqp = require('amqplib/callback_api');
 
 router.post('/', (req, res, next) => {
 	console.log('req' + util.inspect(req.body));
-	return res.status(200).json({
-		'message': 'Message poster'
-	})
-	// try {
-	// 	amqp.connect('amqp://localhost', function(err, conn) {
-	// 	  conn.createChannel(function(err, ch) {
-	// 			var exchange = 'rabbex';
 
-  //       ch.assertExchange(exchange, 'fanout', {durable: false});
-        
-  //       ch.assertQueue('rabbq', {exclusive: true}, function(err, q) {
-  //         console.log('Binding to q to ex');
-	// 				ch.bindQueue(q.queue, exchange);
-	// 				console.log('Request: ' + JSON.stringify(req.body));
-  //         ch.publish(exchange, '', new Buffer(req.body.message))
-  //       });
-      
-	// 		})
-	// 	});
-	// } catch (err) {
-	// 	return res.status(500).json({
-	// 		'message': 'Error occurred while posting message'
-	// 	});
-	// }
+	try {
+		amqp.connect('amqp://localhost', function(err, conn) {
+		  conn.createChannel(function(err, ch) {
+				var exchange = 'rabbex';
 
-	// return res.status(201).json({
-	// 	'message': 'Message posted'
-	// });
+        // Check that the exchange exists, create it if it doesn't
+        ch.checkExchange(exchange, (err, ok) => {
+          if(err) {
+            console.log('Errored checking exchange. Asserting Exchange');
+            ch.assertExchange(exchange, {durable: true, exclusive: false});
+            console.log(err);
+          } else {
+            console.log('Checked exchange')
+
+          }
+        });
+
+        // Connect to the queue/create it if it doesn't exist
+        ch.assertQueue('rabbq', {exclusive: false, durable: true, autoDelete: false}, function(err, q) {
+          if(err) {
+            return res.status(500).json({
+              'message': 'Error occurred asserting queue'
+            });
+          }
+
+          try {
+            ch.bindQueue(q.queue, exchange);
+            console.log('Request: ' + JSON.stringify(req.body));
+            ch.publish(exchange, '', new Buffer(req.body.message));
+            // Close connection after 2 seconds to let message get published
+            setTimeout(() => {
+              conn.close()
+            }, 2000);
+          } catch (err) {
+            return res.status(500).json({
+              'message': 'Error binding to queue'
+            });
+          }
+        });
+      });
+		});
+	} catch (err) {
+		return res.status(500).json({
+			'message': 'Error occurred while posting message'
+		});
+	}
+
+	return res.status(201).json({
+    'result': 'Message posted',
+    'message': req.body.message
+	});
 
 })
 
