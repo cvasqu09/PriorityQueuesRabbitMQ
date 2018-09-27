@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
           console.log(msg);
           conn.close();
           return res.status(200).json({
-            'mesage': msg.content.toString()
+            'message': msg.content.toString()
           })
         } else {
           console.log('no message')

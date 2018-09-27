@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessagingService } from '../services/messaging.service';
 
 @Component({
   selector: 'app-messaging-view',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./messaging-view.component.scss']
 })
 export class MessagingViewComponent implements OnInit {
-
-  constructor() { }
+  message: string = null;
+  constructor(private messagingService: MessagingService) { }
 
   ngOnInit() {
+    this.messagingService.messageObs.subscribe(message => {
+      this.message = message;
+    });
+  }
+
+  onClick() {
+    this.messagingService.receiveMessage();
+    console.log(this.message);
+  }
+
+  messageExists(): Boolean {
+    return (this.message != null || this.message !== '') ? false : true;
   }
 
 }

@@ -4,7 +4,8 @@
   </h3>
   <form>
     <mat-form-field>
-      <input matInput>
+      <input matInput readonly=true [value]="message">
     </mat-form-field>
+    <button mat-raised-button color="primary" (click)="onClick()">Pop Message</button>
   </form>
 </mat-card>

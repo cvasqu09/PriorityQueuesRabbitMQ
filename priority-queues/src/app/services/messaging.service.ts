@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { NotificationService } from './notification.service';
 
@@ -15,6 +15,12 @@ export class MessagingService {
   sendMessage(msg: string) {
     return this.http.post('http://localhost:3000/send/', {message: msg}).subscribe((res: any) => {
       this.notificationService.notify(res.message);
+    });
+  }
+
+  receiveMessage(): Subscription {
+    return this.http.get('http://localhost:3000/receive/').subscribe((res: any) => {
+      this.message.next(res.message);
     });
   }
 }
