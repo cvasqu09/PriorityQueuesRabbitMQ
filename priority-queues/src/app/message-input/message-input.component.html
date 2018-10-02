@@ -1,8 +1,11 @@
 <mat-card>
-  <form class="message-form">
+  <form class="message-form" [formGroup]="inputForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="input-field">
-      <input matInput placeholder="Enter your message here" [(ngModel)]="message" name="message">
+      <input matInput placeholder="Enter your message here" name="message" formControlName="message">
     </mat-form-field>
-    <button mat-raised-button color="primary" class="button" (click)="onClick()">Send</button>
+    <mat-form-field class="priority-field">
+      <input matInput placeholder="Enter priority here" name="priority" formControlName="priority">
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Send</button>
   </form>
 </mat-card>

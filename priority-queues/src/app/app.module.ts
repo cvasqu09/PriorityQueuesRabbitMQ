@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageInputComponent } from './message-input/message-input.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessagingService } from './services/messaging.service';
 import { MessagingHomeComponent } from './messaging-home/messaging-home.component';
 import { MessagingViewComponent } from './messaging-view/messaging-view.component';
@@ -34,7 +34,8 @@ import { NotificationService } from './services/notification.service';
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [MessagingService, NotificationService],
   bootstrap: [AppComponent]

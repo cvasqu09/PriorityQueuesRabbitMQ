@@ -12,8 +12,8 @@ export class MessagingService {
 
   constructor(private http: HttpClient, private notificationService: NotificationService) { }
 
-  sendMessage(msg: string) {
-    return this.http.post('http://localhost:3000/send/', {message: msg}).subscribe((res: any) => {
+  sendMessage(msg: string, priority: number) {
+    return this.http.post('http://localhost:3000/send/', {message: msg, priority: priority}).subscribe((res: any) => {
       this.notificationService.notify(res.message);
     });
   }
