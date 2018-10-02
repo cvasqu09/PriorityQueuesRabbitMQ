@@ -1,6 +1,6 @@
 import { Component, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 import { MessagingService } from '../services/messaging.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-message-input',
@@ -14,8 +14,8 @@ export class MessageInputComponent implements OnInit {
 
   ngOnInit() {
     this.inputForm = new FormGroup({
-      'message': new FormControl(''),
-      'priority': new FormControl(1)
+      'message': new FormControl('', Validators.required),
+      'priority': new FormControl(1, [Validators.required, this.validPriority])
     });
   }
 
@@ -24,6 +24,15 @@ export class MessageInputComponent implements OnInit {
     // Add '${implements OnChanges}' to the class.
     console.log(this.inputForm.value);
     this.messagingService.sendMessage(this.inputForm.get('message').value, this.inputForm.get('priority').value);
+  }
+
+  validPriority(priorityControl: FormControl): {[key: string]: string} {
+    const priority: number = Number(priorityControl.value);
+    if (priority >= 1 && priority <= 10) {
+      return null;
+    }
+
+    return {'priority': 'Priority not in range 1-10'};
   }
 
 }
