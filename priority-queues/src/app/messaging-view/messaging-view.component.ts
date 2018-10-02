@@ -18,7 +18,6 @@ export class MessagingViewComponent implements OnInit {
 
   onClick() {
     this.messagingService.receiveMessage();
-    console.log(this.message);
   }
 
   messageExists(): Boolean {

@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Notification } from '../models/notification.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-  private notification: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  notificationObs = this.notification.asObservable();
+  private notificationSubject: BehaviorSubject<Notification> = new BehaviorSubject<Notification>(null);
+  notificationObs = this.notificationSubject.asObservable();
 
   constructor() { }
 
-  notify(message: string) {
-    this.notification.next(message);
+  notify(notification: Notification) {
+    this.notificationSubject.next(notification);
   }
 }

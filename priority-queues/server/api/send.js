@@ -34,7 +34,7 @@ router.post('/', (req, res, next) => {
         try {
           ch.bindQueue(q.queue, exchange);
           console.log('Request: ' + JSON.stringify(req.body));
-          ch.publish(exchange, '', new Buffer(req.body.message), {priority: req.body.priority});
+          ch.publish(exchange, '', new Buffer(req.body.message), {priority: Number(req.body.priority)});
           // Close connection after 2 seconds to let message get published
           setTimeout(() => {
             conn.close();
